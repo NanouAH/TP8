@@ -8,7 +8,7 @@ pipeline {
         archiveArtifacts 'build/libs/*.jar'
         archiveArtifacts 'build/docs/javadoc/*'
         junit 'build\\test-results\\test\\*.xml'
-      }
+      } 
     }
 
   }
