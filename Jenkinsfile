@@ -10,7 +10,7 @@ pipeline {
         archiveArtifacts 'build/docs/javadoc/*'
         junit 'build\\test-results\\test\\*.xml'
       }
-    }
+    
     post{
       always { echo "Build Stage Complete"}
       failure {script{message= "Build failed"}}
