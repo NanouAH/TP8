@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "2.7"
+    id 'maven-publish'
+    id "net.madeng.slack" version "0.0.22"
+
+}
+
+group 'com.example'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.8
+            }
+        }}}
+
+pitest {
+    targetClasses=['com.example.service.*']
+    targetTests=['com.test.*']
+}
+
+check.finalizedBy"pitest","jacocoTestReport","jacocoTestCoverageVerification","sonarqube"
+task generateMatrixAPI(type:Copy){
+    from ('build/reports')
+            {into 'reports'}
+    from ('build/docs')
+            {into 'docs'}
+    from ('build/libs')
+            {into 'libs'}
+    into 'C:/MatrixRelease/Matrix_v_1.0'
+}
+generateMatrixAPI.dependsOn"build","javadoc"
+publishing {
+    repositories {
+        maven {
+            url 'https://mymavenrepo.com/repo/w0LHeh7bfS2ZLxMQL9zV/'
+            credentials {
+                username 'myMavenRepo'
+                password 'iferhounene'
+            }
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+generateMatrixAPI.finalizedBy"publish"
+slack{
+    webhookUrl 'https://hooks.slack.com/services/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'
+    message {
+        text = "Project is built newly and deployed into "
+        channel = '#gradle'
+}
+}
+publish.finalizedBy"publishToSlack"
