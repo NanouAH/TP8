@@ -13,8 +13,8 @@ pipeline {
     
     post{
       always { echo "Build Stage Complete"}
-      failure {script{message= "Build failed"}}
-      success {script{message="Build succeeded"}}
+      failure { script { message= "Build failed" } }
+      success { script { message="Build succeeded" } }
     }
                  
 
@@ -24,5 +24,6 @@ pipeline {
       }
     } 
 
-    }}
+    }
+  }
 
