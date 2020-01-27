@@ -9,14 +9,14 @@ pipeline {
 
         failure {
           script {
-            message= "Build failed"
+            message += "Build failed"
           }
 
         }
 
         success {
           script {
-            message="Build succeeded"
+            message +="Build succeeded"
           }
 
         }
