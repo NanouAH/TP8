@@ -17,7 +17,7 @@ pipeline {
       success { script { message="Build succeeded" } }
     }
                  
-
+    }
     stage('Mail Notification') {
       steps {
         mail(subject: 'Build', body: "${message}", from: 'jenkins-notification@jenkins.com', to: 'gn_ahmim@esi.dz')
