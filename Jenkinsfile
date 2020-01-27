@@ -13,7 +13,7 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'build', body: 'Succés', from: 'jenkins-notification@jenkins.com', to: 'smtp.sendgrid.com')
+        mail(subject: 'Build', body: 'Succés', from: 'jenkins-notification@jenkins.com', to: 'gn_ahmim@esi.dz')
       }
     }
 
