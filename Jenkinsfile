@@ -1,3 +1,4 @@
+def message =""
 pipeline {
   agent any
   stages {
@@ -10,10 +11,16 @@ pipeline {
         junit 'build\\test-results\\test\\*.xml'
       }
     }
+    post{
+      always { echo "Build Stage Complete"}
+      failure {script{message= "Build failed"}}
+      success {script{message="Build succeeded"}}
+    }
+                 
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'Build', body: 'Succés', from: 'jenkins-notification@jenkins.com', to: 'gn_ahmim@esi.dz')
+        mail(subject: 'Build', body: "${message}", from: 'jenkins-notification@jenkins.com', to: 'gn_ahmim@esi.dz')
       }
     }
 
