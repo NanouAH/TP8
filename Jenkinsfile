@@ -40,7 +40,7 @@ pipeline {
 
     stage('Deployment') {
       steps {
-        bat 'gradle publishing'
+        bat 'gradle publish'
       }
     }
 
