@@ -3,7 +3,6 @@ plugins {
     id 'jacoco'
     id "org.sonarqube" version "2.7"
     id 'maven-publish'
-    id "net.madeng.slack" version "0.0.22"
 
 }
 
@@ -63,11 +62,6 @@ publishing {
 }
 
 generateMatrixAPI.finalizedBy"publish"
-slack{
-    webhookUrl 'https://hooks.slack.com/services/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'
-    message {
-        text = "Project is built newly and deployed into "
-        channel = '#gradle'
-}
-}
-publish.finalizedBy"publishToSlack"
+
+
+
