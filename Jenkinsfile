@@ -44,5 +44,11 @@ pipeline {
       }
     }
 
+    stage('Slack Notification') {
+      steps {
+        slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'TRQR5NKUM/BT54Q7NV8/WnnX2tVffqGr6gUUuZ0j9AGm', message: 'Notification', teamDomain: 'esi-mmt2501', channel: 'général')
+      }
+    }
+
   }
 }
