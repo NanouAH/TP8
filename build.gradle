@@ -27,10 +27,7 @@ jacocoTestCoverageVerification {
             }
         }}}
 
-pitest {
-    targetClasses=['com.example.service.*']
-    targetTests=['com.test.*']
-}
+
 
 check.finalizedBy"jacocoTestReport","jacocoTestCoverageVerification","sonarqube"
 task generateMatrixAPI(type:Copy){
