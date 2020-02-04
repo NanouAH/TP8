@@ -32,7 +32,7 @@ pitest {
     targetTests=['com.test.*']
 }
 
-check.finalizedBy"pitest","jacocoTestReport","jacocoTestCoverageVerification","sonarqube"
+check.finalizedBy"jacocoTestReport","jacocoTestCoverageVerification","sonarqube"
 task generateMatrixAPI(type:Copy){
     from ('build/reports')
             {into 'reports'}
