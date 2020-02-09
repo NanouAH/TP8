@@ -2,12 +2,23 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      steps {
-        bat 'C:\\Users\\Latitude\\Desktop\\gradle-6.0.1\\bin\\gradle build'
-        bat 'C:\\Users\\Latitude\\Desktop\\gradle-6.0.1\\bin\\gradle javadoc'
-        archiveArtifacts 'build/libs/*.jar'
-        archiveArtifacts 'build/docs/javadoc/*'
-        junit 'build\\test-results\\test\\*.xml'
+      parallel {
+        stage('Build') {
+          steps {
+            bat 'C:\\Users\\Latitude\\Desktop\\gradle-6.0.1\\bin\\gradle build'
+            bat 'C:\\Users\\Latitude\\Desktop\\gradle-6.0.1\\bin\\gradle javadoc'
+            archiveArtifacts 'build/libs/*.jar'
+            archiveArtifacts 'build/docs/javadoc/*'
+            junit 'build\\test-results\\test\\*.xml'
+          }
+        }
+
+        stage('Test Reporting') {
+          steps {
+            jacoco()
+          }
+        }
+
       }
     }
 
@@ -39,14 +50,18 @@ pipeline {
     }
 
     stage('Deployment') {
-      when {branch'master'}
+      when {
+        branch 'master'
+      }
       steps {
         bat 'gradle publish'
       }
     }
 
     stage('Slack Notification') {
-        when {branch'master'}
+      when {
+        branch 'master'
+      }
       steps {
         slackSend(baseUrl: 'https://hooks.slack.com/services/', token: 'TRQR5NKUM/BT54Q7NV8/WnnX2tVffqGr6gUUuZ0j9AGm', message: 'Notification', teamDomain: 'esi-mmt2501', channel: 'général')
       }
